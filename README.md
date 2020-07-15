@@ -1,5 +1,7 @@
 !!!Disclaimer this script definitely break Whatsapp TOS, use at your own risk!!!
-How to use this script
+
+
+
 
 prerequisite
 - get chrome
