@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
+from datetime import datetime
 
 driver = webdriver.Chrome()
 Wait_message = "Looking for chats, contacts or messages..."
@@ -10,7 +11,7 @@ not_found_message = "No chats, contacts or messages found"
 driver.get('https://web.whatsapp.com/')
 
 
-input('Press any key after scanning QR code')
+
 
 phone_num='phonenumber.txt'
 
@@ -18,15 +19,25 @@ file = open(phone_num)
 text = file.read().split('\n')
 file.close()
 file = open('log.txt',"a")
+now = datetime.now()
+dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+file.write('----------------------------------------------------------\n')
+file.write('                  %s\n' % (dt_string) )
 file.write('----------------------------------------------------------\n')
 
+input('Press any key after scanning QR code')
+
 for name in text:
+	if name[:1:]=='#':
+		continue
+
 	find = driver.find_element_by_xpath('//*[@id="side"]/div[1]/div/label/div/div[2]')
 	namee = '+' + name
 	find.send_keys(namee)
 	find.send_keys(Keys.RETURN)
 
 	time.sleep(3)
+
 	try:
 		not_found = driver.find_element_by_xpath('//*[@id="pane-side"]/div[1]/div/span').text
 		while(not_found==Wait_message):
@@ -37,9 +48,16 @@ for name in text:
 			web = "https://web.whatsapp.com/send?phone="+name
 			driver.get(web)
 
-			time.sleep(15)
+		while True:
+			try:
+				a = driver.find_element_by_xpath('//*[@id="side"]/header/div[1]/div/div/span')
+				break
+			except:
+				time.sleep(1)
 	except:
 		pass
+
+	time.sleep(2)
 	
 	try:
 		msg_box = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')
@@ -55,6 +73,8 @@ for name in text:
 
 	time.sleep(1)
 
-
+file.write('----------------------------------------------------------\n')
+file.write('                     END OF LOG FILE\n')
+file.write('----------------------------------------------------------\n\n\n')
 file.close()
 a = input("PROGRAM KELAR!!!!Press Enter to continue...")
