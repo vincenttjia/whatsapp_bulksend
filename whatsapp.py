@@ -36,41 +36,49 @@ for name in text:
 	find.send_keys(namee)
 	find.send_keys(Keys.RETURN)
 
-	time.sleep(3)
-
+	time.sleep(5)
 	try:
 		not_found = driver.find_element_by_xpath('//*[@id="pane-side"]/div[1]/div/span').text
 		while(not_found==Wait_message):
 			time.sleep(1)
 			not_found = driver.find_element_by_xpath('//*[@id="pane-side"]/div[1]/div/span').text
-
-		if(not_found==not_found_message):
-			web = "https://web.whatsapp.com/send?phone="+name
-			driver.get(web)
-
-		while True:
-			try:
-				a = driver.find_element_by_xpath('//*[@id="side"]/header/div[1]/div/div/span')
-				break
-			except:
-				time.sleep(1)
 	except:
-		pass
+		not_found='masuk else'
 
-	time.sleep(2)
-	
-	try:
+	if(not_found==not_found_message):
+		find = driver.find_element_by_xpath('//*[@id="side"]/div[1]/div/label/div/div[2]')
+		find.clear()
+		find.send_keys('+6285779017487')
+		find.send_keys(Keys.RETURN)
+		msg_box = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')
+		web = "wa.me/"+name
+		msg_box.send_keys(web)
+		msg_box.send_keys(Keys.RETURN)
+		time.sleep(1)
+		href = "//a[@href='http://wa.me/"+name+"']"
+		driver.find_element_by_xpath(href).click()
+		time.sleep(4)
+
+
+		try:
+			ok_button = driver.find_element_by_xpath('//*[@id="app"]/div/span[2]/div/span/div/div/div/div/div/div[2]/div')
+			ok_button.click()
+			print('%s Not FOUND!!!!!' % (name))
+			abc = "%s Not FOUND!!!!!\n" % (name)
+			file.write(abc)
+		except:
+			msg_box = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')
+			msg_box.send_keys(Keys.CONTROL, 'v')
+			button = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[3]/button/span')
+			button.click()
+
+	else:
 		msg_box = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')
 		msg_box.send_keys(Keys.CONTROL, 'v')
 		button = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[3]/button/span')
-		button.click()
-	except:
-		print('%s Not FOUND!!!!!' % (name))
-		abc = "%s Not FOUND!!!!!\n" % (name)
-		file.write(abc)
-		ok_button = driver.find_element_by_xpath('//*[@id="app"]/div/span[2]/div/span/div/div/div/div/div/div[2]/div')
-		ok_button.click()
+		button.click()			
 
+	
 	time.sleep(1)
 
 file.write('----------------------------------------------------------\n')
