@@ -3,11 +3,13 @@ from selenium.webdriver.common.keys import Keys
 import time
 from datetime import datetime
 
-driver = webdriver.Chrome()
+
+my_phone_number = '+6285779017487'
 Wait_message = "Looking for chats, contacts or messages..."
 not_found_message = "No chats, contacts or messages found"
 
 
+driver = webdriver.Chrome()
 driver.get('https://web.whatsapp.com/')
 
 
@@ -25,7 +27,7 @@ file.write('----------------------------------------------------------\n')
 file.write('                  %s\n' % (dt_string) )
 file.write('----------------------------------------------------------\n')
 
-input('Press any key after scanning QR code')
+input('Press enter after scanning QR code')
 
 for name in text:
 	if name[:1:]=='#':
@@ -48,7 +50,7 @@ for name in text:
 	if(not_found==not_found_message):
 		find = driver.find_element_by_xpath('//*[@id="side"]/div[1]/div/label/div/div[2]')
 		find.clear()
-		find.send_keys('+6285779017487')
+		find.send_keys(my_phone_number)
 		find.send_keys(Keys.RETURN)
 		msg_box = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')
 		web = "wa.me/"+name
