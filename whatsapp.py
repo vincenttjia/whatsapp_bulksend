@@ -14,6 +14,8 @@ def main():
 	global my_phone_number,Wait_message,not_found_message,phone_num,file
 	driver = webdriver.Chrome()
 	driver.get('https://web.whatsapp.com/')
+	checkbox = driver.find_element_by_xpath('//*[@id="app"]/div/div/div[2]/div[1]/div/div[3]/label/input')
+	checkbox.click()
 
 	file = open(phone_num)
 	text = file.read().split('\n')
@@ -86,8 +88,14 @@ if __name__ == '__main__':
 	global file
 	try:
 		main()
+		file.write('---Program Done---\n')
+		file.write('----------------------------------------------------------\n')
+		file.write('                     END OF LOG FILE\n')
+		file.write('----------------------------------------------------------\n\n\n')
+		file.close()
 		a = input("PROGRAM KELAR!!!!Press Enter to continue...")
 	except:
+		file.write('#######################ERROR EXIT#########################\n')
 		file.write('----------------------------------------------------------\n')
 		file.write('                     END OF LOG FILE\n')
 		file.write('----------------------------------------------------------\n\n\n')
