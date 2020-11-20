@@ -70,17 +70,26 @@ def main():
 				abc = "%s Not FOUND!!!!!\n" % (name)
 				file.write(abc)
 			except:
-				msg_box = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')
+				attach = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[1]/div[2]/div/div')
+				attach.click()
+				upload = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[1]/div[2]/div/span/div/div/ul/li[1]/button/input');
+				uploadElement.sendKeys("C:\\picture\\promo1.jpeg")
+				time.sleep(4)
+				msg_box = driver.find_element_by_xpath('//*[@id="app"]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/div[1]/span/div/div[2]/div/div[3]/div[1]/div[2]')
 				msg_box.send_keys(Keys.CONTROL, 'v')
-				button = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[3]/button/span')
+				button = driver.find_element_by_xpath('//*[@id="app"]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/span/div/div/span')
 				button.click()
 
 		else:
-			msg_box = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')
+			attach = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[1]/div[2]/div/div')
+			attach.click()
+			upload = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[1]/div[2]/div/span/div/div/ul/li[1]/button/input');
+			uploadElement.sendKeys("C:\\picture\\promo1.jpeg")
+			time.sleep(4)
+			msg_box = driver.find_element_by_xpath('//*[@id="app"]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/div[1]/span/div/div[2]/div/div[3]/div[1]/div[2]')
 			msg_box.send_keys(Keys.CONTROL, 'v')
-			time.sleep(2)
-			button = driver.find_element_by_xpath('//*[@id="app"]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/span/div/div')
-			button.click()			
+			button = driver.find_element_by_xpath('//*[@id="app"]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/span/div/div/span')
+			button.click()		
 
 		
 		time.sleep(3)
